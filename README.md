@@ -4,7 +4,7 @@ Uma aplicação simples de rede social desenvolvida em **PHP** com o framework *
 O sistema permite cadastro de usuários, criação de postagens e interação através de likes.
 ---
 
-![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
+[![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge&logo=github)]()
 
 > ⚠️ **Aviso:** Este projeto ainda está em desenvolvimento.  
 > Funcionalidades podem mudar, novas features serão adicionadas e a estrutura pode sofrer ajustes.
@@ -12,11 +12,13 @@ O sistema permite cadastro de usuários, criação de postagens e interação at
 ---
 
 ## 🚀 Tecnologias utilizadas
-![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?logo=php&logoColor=white)
-![CodeIgniter](https://img.shields.io/badge/CodeIgniter-4.6.5-EF4223?logo=codeigniter&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)
-![Laragon](https://img.shields.io/badge/Laragon-Localhost-0E83CD?logo=laragon&logoColor=white)
-![phpMyAdmin](https://img.shields.io/badge/phpMyAdmin-5.2.1-6C78AF?logo=phpmyadmin&logoColor=white)
+
+[![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
+[![CodeIgniter](https://img.shields.io/badge/CodeIgniter-EF4223?style=for-the-badge&logo=codeigniter&logoColor=white)](https://codeigniter.com/)
+[![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![phpMyAdmin](https://img.shields.io/badge/phpMyAdmin-6C78AF?style=for-the-badge&logo=phpmyadmin&logoColor=white)](https://www.phpmyadmin.net/)
+[![Laragon](https://img.shields.io/badge/Laragon-0E83CD?style=for-the-badge&logo=laragon&logoColor=white)](https://laragon.org/)
+
 ---
 
 ## 📂 Estrutura do banco de dados
