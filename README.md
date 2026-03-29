@@ -7,7 +7,8 @@ O sistema permite cadastro de usuários, criação de postagens e interação at
 > [!IMPORTANT]
 [![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge&logo=github)]()
 
-> ⚠️🚧 **Aviso: Este projeto ainda está em desenvolvimento.** 
+> ⚠️🚧 **Aviso: Este projeto ainda está em desenvolvimento.**
+
 > Funcionalidades podem mudar, novas features serão adicionadas e a estrutura pode sofrer ajustes.
 
 ---
