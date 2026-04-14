@@ -2,87 +2,145 @@
 
 <?= $this->section('content') ?>
 
-<div class="container animate-up">
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?= base_url('feed') ?>"
-                    class="text-decoration-none text-muted">root</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url('feed') ?>"
-                    class="text-decoration-none text-muted">postagens</a></li>
-            <li class="breadcrumb-item active text-accent" aria-current="page">new_post.sh</li>
-        </ol>
-    </nav>
+<div class="row justify-content-center">
+    <div class="col-lg-11">
+        <h3 class="fw-bold mb-4 font-monospace">
+            <i class="bi bi-plus-square me-2 text-primary"></i>CREATE_NEW_ENTRY.EXE
+        </h3>
 
-    <div class="card border-0 shadow-lg overflow-hidden">
-        <div class="card-header border-0 d-flex align-items-center px-4 py-3" style="background: rgba(0,0,0,0.2);">
-            <div class="d-flex gap-2 me-3">
-                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
-                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
-                <div style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f;"></div>
-            </div>
-            <span class="small fw-bold font-monospace opacity-50">Editor: SHA-256 Mode</span>
-        </div>
+        <div class="card border-0 shadow-lg mb-4" style="background: var(--card-bg);">
+            <div class="card-body p-4">
+                <form action="<?= base_url('postagens/store') ?>" method="post" enctype="multipart/form-data"
+                    id="formPostagem">
+                    <?= csrf_field() ?>
 
-        <div class="card-body p-4">
-            <h2 class="fw-extrabold mb-4" style="letter-spacing: -1px;">Commit nova ideia</h2>
-
-            <form action="<?= base_url('postagens/store') ?>" method="post">
-                <div class="mb-4 position-relative">
-                    <label class="form-label small text-muted font-monospace mb-2">/content/payload:</label>
-                    <textarea name="conteudo" class="form-control border-0 p-3 fs-5" rows="8"
-                        placeholder="Insira seu código ou pensamento aqui..."
-                        style="resize: none; background: rgba(0,0,0,0.15); font-family: 'Fira Code', monospace; color: var(--text-color);"
-                        required autofocus></textarea>
-
-                    <div class="position-absolute end-0 top-0 mt-2 me-3 opacity-25">
-                        <i class="bi bi-braces fs-1"></i>
-                    </div>
-                </div>
-
-                <div class="d-flex align-items-center justify-content-between bg-dark bg-opacity-10 p-3 rounded-3">
-                    <div class="text-muted small">
-                        <i class="bi bi-info-circle me-1"></i> Use Markdown ou texto puro.
-                    </div>
-                    <div class="d-flex gap-2">
-                        <a href="<?= base_url('feed') ?>"
-                            class="btn btn-link text-muted text-decoration-none fw-bold">Abort</a>
-                        <button type="submit" class="btn btn-tech px-5">
-                            PUSH TO MAIN <i class="bi bi-cloud-arrow-up-fill ms-2"></i>
+                    <div class="d-flex gap-2 mb-3">
+                        <button type="button" class="btn btn-dark btn-sm border border-secondary"
+                            onclick="insertFormat('editor', 'code')" title="Inserir Bloco de Código">
+                            <i class="bi bi-code"></i> Code
+                        </button>
+                        <button type="button" class="btn btn-dark btn-sm border border-secondary"
+                            onclick="insertFormat('editor', 'bold')" title="Negrito">
+                            <i class="bi bi-type-bold"></i> Bold
+                        </button>
+                        <button type="button" class="btn btn-dark btn-sm border border-secondary"
+                            onclick="document.getElementById('fileCreate').click()" title="Anexar Imagem">
+                            <i class="bi bi-image"></i> Image
                         </button>
                     </div>
+
+                    <input type="file" name="imagem" id="fileCreate" class="d-none" accept="image/*">
+
+                    <textarea name="conteudo" id="editor"
+                        class="form-control bg-transparent text-white border-0 fs-5 custom-textarea"
+                        style="min-height: 300px; resize: none; outline: none; text-align: left !important;"
+                        placeholder="root@codeshare:~# Descreva sua lógica ou cole seu snippet..." required></textarea>
+
+                    <hr class="border-white border-opacity-10">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="<?= base_url('feed') ?>" class="text-muted text-decoration-none small hover-accent">
+                            <i class="bi bi-x-circle me-1"></i> Abort Mission
+                        </a>
+                        <button type="submit" class="btn btn-tech px-5 shadow-sm">
+                            <i class="bi bi-terminal me-2"></i>PUSH_TO_MAIN
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="preview-section mt-5">
+            <h6 class="text-muted small mb-3 font-monospace text-uppercase d-flex align-items-center">
+                <i class="bi bi-eye me-2 text-primary"></i> Live_Preview_Output
+            </h6>
+            <div class="p-4 rounded-3 border border-white border-opacity-10"
+                style="background: rgba(0,0,0,0.2); min-height: 200px;">
+
+                <div id="preview" class="text-white-50 text-start w-100"
+                    style="white-space: pre-wrap; word-wrap: break-word; font-family: 'Inter', sans-serif; text-align: left !important;">
+                    <span class="opacity-25 font-monospace">> Aguardando entrada de dados...</span>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
-    textarea:focus {
-        outline: none !important;
-        box-shadow: 0 0 0 2px var(--accent-color) !important;
-        background: rgba(0, 0, 0, 0.25) !important;
+    .custom-textarea,
+    #preview {
+        text-align: left !important;
     }
 
-    .animate-up {
-        animation: fadeInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    .hover-accent:hover {
+        color: var(--accent-color) !important;
     }
 
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .breadcrumb-item+.breadcrumb-item::before {
-        color: var(--border-color);
-        content: ">";
+    /* Estilização para o bloco de código dentro do preview */
+    #preview pre {
+        background: #1e1e1e !important;
+        padding: 1.5rem !important;
+        border-radius: 8px;
+        border: 1px solid #333;
+        margin-top: 1rem;
+        text-align: left !important;
     }
 </style>
+
+<script>
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+
+    // Função de Live Preview com suporte a Markdown básico e Prism.js
+    editor.addEventListener('input', () => {
+        let content = editor.value;
+
+        if (content.trim() === "") {
+            preview.innerHTML = '<span class="opacity-25 font-monospace">> Aguardando entrada de dados...</span>';
+            return;
+        }
+
+        let formatted = content
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
+
+        formatted = formatted.replace(/```([\s\S]*?)```/g, '<pre class="line-numbers"><code class="language-php">$1</code></pre>');
+
+        formatted = formatted.replace(/@(\w+)/g, '<span class="text-primary">@$1</span>');
+
+        preview.innerHTML = formatted;
+
+        if (window.Prism) {
+            Prism.highlightAllUnder(preview);
+        }
+    });
+
+    // Função para os botões da Toolbar
+    function insertFormat(fieldId, type) {
+        const area = document.getElementById(fieldId);
+        const start = area.selectionStart;
+        const end = area.selectionEnd;
+        const text = area.value;
+        const selected = text.substring(start, end);
+        let before = "", after = "";
+
+        if (type === 'code') {
+            before = "```\n";
+            after = "\n```";
+        }
+        if (type === 'bold') {
+            before = "**";
+            after = "**";
+        }
+
+        area.value = text.substring(0, start) + before + selected + after + text.substring(end);
+
+        area.dispatchEvent(new Event('input'));
+        area.focus();
+    }
+</script>
 
 <?= $this->endSection() ?>

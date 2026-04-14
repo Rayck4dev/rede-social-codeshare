@@ -5,11 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeShare | Tech Network</title>
+
+    <link rel="icon" type="image/png" href="<?= base_url('logo.png') ?>">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap"
         rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css"
+        rel="stylesheet" />
 
     <style>
         :root {
@@ -19,15 +27,15 @@
             --border-color: #30363d;
             --text-color: #c9d1d9;
             --accent-color: #58a6ff;
-            --transition-speed: 0.5s;
+            --transition-speed: 0.3s;
         }
 
         [data-bs-theme="light"] {
-            --nav-bg: rgba(255, 255, 255, 0.8);
-            --body-bg: #f0f2f5;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --body-bg: #f6f8fa;
             --card-bg: #ffffff;
-            --border-color: #dee2e6;
-            --text-color: #1c1e21;
+            --border-color: #d0d7de;
+            --text-color: #1f2328;
             --accent-color: #0969da;
         }
 
@@ -35,135 +43,145 @@
             background-color: var(--body-bg);
             color: var(--text-color);
             font-family: 'Inter', sans-serif;
-            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        /* --- LOGO ANIMATION FIX --- */
+        .brand-text {
+            color: var(--accent-color) !important;
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            border-right: 3px solid var(--accent-color);
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            width: 13ch;
+            /* Tamanho exato do texto "> CodeShare/_" */
+            animation: typing 2s steps(15, end), blink .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 13ch
+            }
+        }
+
+        @keyframes blink {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: var(--accent-color)
+            }
         }
 
         .navbar {
             background-color: var(--nav-bg) !important;
-            backdrop-filter: blur(12px) saturate(180%);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
-            transition: all var(--transition-speed) ease;
+        }
+
+        .search-box {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 5px 15px;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            font-size: 0.9rem;
         }
 
         .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                box-shadow 0.3s ease,
-                border-color 0.3s ease;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        #theme-toggle {
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: var(--card-bg) !important;
+            border: 1px solid var(--border-color) !important;
             border-radius: 12px;
-            cursor: pointer;
-            background: rgba(88, 166, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        #theme-toggle:hover {
-            background: rgba(88, 166, 255, 0.2);
-            transform: rotate(15deg);
-        }
-
-        #theme-icon {
-            font-size: 1.3rem;
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .rotate-icon {
-            transform: rotate(360deg) scale(1.2);
         }
 
         .sidebar-link {
             display: flex;
             align-items: center;
-            padding: 12px 15px;
+            padding: 10px 15px;
             color: var(--text-color);
             text-decoration: none;
-            border-radius: 12px;
-            margin-bottom: 5px;
-            transition: 0.2s all ease;
+            border-radius: 8px;
+            margin-bottom: 4px;
             font-weight: 500;
+            transition: 0.2s;
         }
 
-        .sidebar-link i {
-            font-size: 1.2rem;
-            margin-right: 15px;
-            transition: 0.3s;
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent-color);
         }
 
-        .sidebar-link:hover {
-            background-color: var(--accent-color);
-            color: white !important;
+        .btn-tech {
+            background: var(--accent-color);
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
         }
 
-        .sidebar-link:hover i {
-            transform: scale(1.2);
-            color: white !important;
+        .col-main-content {
+            text-align: left !important;
         }
 
-        /* Badge de Status Online */
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #238636;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 5px;
-            box-shadow: 0 0 8px #238636;
+        .trending-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
         }
     </style>
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg sticky-top mb-4">
         <div class="container">
-            <a class="navbar-brand fw-extrabold fs-3 d-flex align-items-center" href="<?= base_url('feed') ?>">
-                <span style="color: var(--accent-color); font-family: 'Fira Code', monospace;">&lt;</span>
-                <span class="mx-1">CodeShare</span>
-                <span style="color: var(--accent-color); font-family: 'Fira Code', monospace;">/&gt;</span>
+            <a class="navbar-brand me-4" href="<?= base_url('feed') ?>">
+                <span class="brand-text">> CodeShare/_</span>
             </a>
 
+            <div class="d-none d-lg-flex search-box me-auto">
+                <i class="bi bi-search text-muted me-2"></i>
+                <input type="text" placeholder="Search snippets...">
+            </div>
+
             <div class="d-flex align-items-center ms-auto">
-                <div id="theme-toggle" class="me-3 shadow-sm border border-secondary border-opacity-25">
+                <div id="theme-toggle" class="me-3 p-2 border border-secondary border-opacity-25 rounded-3"
+                    style="cursor: pointer;">
                     <i class="bi bi-moon-stars-fill text-primary" id="theme-icon"></i>
                 </div>
 
                 <?php if (session()->get('logado')): ?>
                     <div class="dropdown">
-                        <div class="d-flex align-items-center cursor-pointer p-1 rounded-pill pe-3 hover-bg"
-                            data-bs-toggle="dropdown" style="cursor: pointer; background: rgba(136,136,136,0.1)">
-                            <div class="user-img me-2 bg-gradient shadow-sm d-flex align-items-center justify-content-center text-white fw-bold rounded-circle"
-                                style="width: 38px; height: 38px; background: linear-gradient(45deg, #0969da, #58a6ff);">
+                        <div class="d-flex align-items-center p-1 rounded-pill pe-3" data-bs-toggle="dropdown"
+                            style="cursor: pointer; background: rgba(136,136,136,0.1)">
+                            <div class="user-img me-2 d-flex align-items-center justify-content-center text-white fw-bold rounded-circle"
+                                style="width: 34px; height: 34px; background: linear-gradient(45deg, #0969da, #58a6ff);">
                                 <?= strtoupper(substr(session()->get('usuario_nome'), 0, 1)) ?>
                             </div>
-                            <div class="d-none d-md-block">
-                                <p class="mb-0 lh-1 small text-muted">Dev</p>
-                                <span class="fw-bold small"><?= session()->get('usuario_nome') ?></span>
-                            </div>
+                            <span class="fw-bold small d-none d-md-block"><?= session()->get('usuario_nome') ?></span>
                         </div>
-                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-2 py-2">
-                            <li><a class="dropdown-item py-2" href="#"><i class="bi bi-cpu me-2"></i> Dashboard</a></li>
-                            <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-2 bg-dark">
+                            <li><a class="dropdown-item text-white"
+                                    href="<?= base_url('perfil/' . session()->get('usuario_id')) ?>"><i
+                                        class="bi bi-cpu me-2"></i> Dashboard</a></li>
                             <li>
-                                <hr class="dropdown-divider">
+                                <hr class="dropdown-divider border-secondary opacity-25">
                             </li>
-                            <li><a class="dropdown-item py-2 text-danger" href="<?= base_url('logout') ?>"><i
+                            <li><a class="dropdown-item text-danger" href="<?= base_url('login/logout') ?>"><i
                                         class="bi bi-terminal me-2"></i> exit(0)</a></li>
                         </ul>
                     </div>
@@ -175,99 +193,86 @@
     <div class="container pb-5">
         <div class="row g-4">
             <div class="col-md-3 d-none d-md-block">
-                <div class="card border-0 bg-transparent">
-                    <div class="card-body p-0">
-                        <a href="<?= base_url('feed') ?>" class="sidebar-link active">
-                            <i class="bi bi-grid-1x2-fill"></i> <span>Explore Feed</span>
+                <div class="position-sticky" style="top: 85px;">
+                    <a href="<?= base_url('feed') ?>"
+                        class="sidebar-link <?= (str_contains(current_url(), 'feed')) ? 'active' : '' ?>">
+                        <i class="bi bi-house-door me-3"></i> Explore Feed
+                    </a>
+                    <a href="<?= base_url('perfil/' . session()->get('usuario_id')) ?>"
+                        class="sidebar-link <?= (str_contains(current_url(), 'perfil')) ? 'active' : '' ?>">
+                        <i class="bi bi-person-badge me-3"></i> My Profile
+                    </a>
+                    <div class="d-grid gap-2 mt-4">
+                        <a href="<?= base_url('postagens/create') ?>" class="btn btn-tech py-2">
+                            <i class="bi bi-plus-lg me-2"></i> NEW_POST.SH
                         </a>
-                        <a href="#" class="sidebar-link">
-                            <i class="bi bi-braces-asterisk"></i> <span>Algorithms</span>
-                        </a>
-                        <a href="#" class="sidebar-link">
-                            <i class="bi bi-incognito"></i> <span>Open Source</span>
-                        </a>
-                        <a href="#" class="sidebar-link">
-                            <i class="bi bi-cup-hot"></i> <span>Coffee Break</span>
-                        </a>
-                        <hr class="my-3 opacity-10">
-                        <div class="px-3">
-                            <p class="small text-muted fw-bold text-uppercase mb-2">My Stack</p>
-                            <span
-                                class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 me-1">#PHP</span>
-                            <span
-                                class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 me-1">#CI4</span>
-                            <span
-                                class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 me-1">#JS</span>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <?php
+            $urlAtual = current_url();
+            $isCreatePage = (strpos($urlAtual, 'postagens/create') !== false);
+            ?>
+
+            <div class="col-md-9 <?= $isCreatePage ? 'col-lg-9' : 'col-lg-6' ?> col-main-content">
                 <?= $this->renderSection('content') ?>
             </div>
 
-            <div class="col-md-3 d-none d-lg-block">
-                <div class="card border-0 bg-transparent">
-                    <div class="card-body p-0">
-                        <div class="card p-4 mb-4 border-0 shadow-sm"
-                            style="background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(0, 0, 0, 0)); border: 1px solid var(--border-color) !important;">
-                            <h6 class="fw-extrabold mb-3">Dev Status</h6>
-                            <div class="d-flex align-items-center mb-2">
-                                <span class="status-dot"></span>
-                                <span class="small">1,240 devs codando agora</span>
+            <?php if (!$isCreatePage): ?>
+                <div class="col-md-3 d-none d-lg-block">
+                    <div class="position-sticky" style="top: 85px;">
+                        <div class="card p-4 mb-4 border-0">
+                            <h6 class="fw-bold mb-3 text-uppercase small font-monospace"
+                                style="color: var(--accent-color);"># Trending_Now</h6>
+                            <div class="trending-item">
+                                <p class="mb-0 fw-bold small">#PHP8.3</p>
+                                <small class="text-muted">1.2k deployed</small>
+                            </div>
+                            <div class="trending-item">
+                                <p class="mb-0 fw-bold small">#CodeIgniter4</p>
+                                <small class="text-muted">540 deployed</small>
                             </div>
                         </div>
 
-                        <div class="card p-4 border-0 shadow-sm">
-                            <h6 class="fw-bold mb-3"><i class="bi bi-fire text-warning me-2"></i>Hot Repo</h6>
-                            <div class="small">
-                                <a href="#" class="text-decoration-none text-accent">codeigniter4/framework</a>
-                                <p class="text-muted mt-1 mb-0">The star of PHP backend development.</p>
+                        <div class="card p-4 border-0">
+                            <h6 class="fw-bold mb-3 text-uppercase small font-monospace">Suggested_Devs</h6>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="rounded-circle me-2 bg-primary d-flex align-items-center justify-content-center text-white fw-bold"
+                                    style="width: 32px; height: 32px; font-size: 10px;">JD</div>
+                                <div class="flex-grow-1">
+                                    <p class="mb-0 small fw-bold lh-1">John_Doe</p>
+                                </div>
+                                <button class="btn btn-sm btn-tech py-0 px-2" style="font-size: 10px;">Follow</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
 
     <script>
+        // Lógica de Tema
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         const html = document.documentElement;
 
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        html.setAttribute('data-bs-theme', savedTheme);
-        updateUI(savedTheme);
-
         themeToggle.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-bs-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            themeIcon.classList.add('rotate-icon');
-
-            setTimeout(() => {
-                html.setAttribute('data-bs-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                updateUI(newTheme);
-            }, 250);
-
-            setTimeout(() => {
-                themeIcon.classList.remove('rotate-icon');
-            }, 700);
+            const newTheme = html.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-bs-theme', newTheme);
+            themeIcon.className = newTheme === 'dark' ? 'bi bi-moon-stars-fill text-primary' : 'bi bi-sun-fill text-warning';
+            localStorage.setItem('theme', newTheme);
         });
 
-        function updateUI(theme) {
-            if (theme === 'dark') {
-                themeIcon.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
-                themeIcon.classList.replace('text-warning', 'text-primary');
-            } else {
-                themeIcon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
-                themeIcon.classList.replace('text-primary', 'text-warning');
-            }
+        if (localStorage.getItem('theme')) {
+            const saved = localStorage.getItem('theme');
+            html.setAttribute('data-bs-theme', saved);
+            themeIcon.className = saved === 'dark' ? 'bi bi-moon-stars-fill text-primary' : 'bi bi-sun-fill text-warning';
         }
     </script>
 </body>

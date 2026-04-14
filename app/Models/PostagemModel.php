@@ -8,7 +8,7 @@ class PostagemModel extends Model
 {
     protected $table = 'postagens';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['usuario_id', 'titulo', 'conteudo', 'created_at', 'updated_at', 'deleted_at'];
+    protected $allowedFields = ['usuario_id', 'titulo', 'conteudo', 'imagem', 'created_at', 'updated_at', 'deleted_at'];
 
     // Dates
     protected $useTimestamps = true;
