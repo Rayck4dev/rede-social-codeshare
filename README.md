@@ -76,7 +76,7 @@ php spark migrate
 
 1. No terminal:
 ```bash
-php spark migrate
+php spark serve
 ```
 
 2. Acesse no navegador:
