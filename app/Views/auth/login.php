@@ -10,7 +10,6 @@
 
     h2 {
         color: #58a6ff !important;
-        /* Azul "GitHub" */
         text-shadow: 0 0 10px rgba(88, 166, 255, 0.5);
         font-family: 'Fira Code', monospace;
         letter-spacing: 2px;
@@ -106,14 +105,15 @@
         font-size: 1.1rem;
         padding-right: 15px;
         z-index: 10;
+    }
 
-        #senhaLogin {
-            padding-right: 45px !important;
-        }
+    #senhaLogin {
+        padding-right: 45px !important;
+    }
 
-        label {
-            color: #8b949e;
-        }
+    label {
+        color: #8b949e;
+    }
 </style>
 
 <canvas id="matrix-bg"></canvas>
@@ -139,7 +139,7 @@
         ctx.fillStyle = "rgba(13, 17, 23, 0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = "#1f6feb"; 
+        ctx.fillStyle = "#1f6feb";
         ctx.font = fontSize + "px monospace";
 
         for (let i = 0; i < drops.length; i++) {

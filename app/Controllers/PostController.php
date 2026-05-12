@@ -30,15 +30,12 @@ class PostController extends BaseController
     {
         return view('postagens/create');
     }
-
-    /**
-     * Salva a Postagem (Feed ou Página Create)
-     */
+    
     public function store()
     {
         $regras = [
             'conteudo' => 'required|min_length[3]',
-            'imagem' => 'permit_empty|is_image[imagem]|max_size[imagem,2048]' // Máximo 2MB
+            'imagem' => 'permit_empty|is_image[imagem]|max_size[imagem,2048]'
         ];
 
         if (!$this->validate($regras)) {

@@ -46,7 +46,6 @@
             transition: background-color var(--transition-speed), color var(--transition-speed);
         }
 
-        /* --- LOGO ANIMATION FIX --- */
         .brand-text {
             color: var(--accent-color) !important;
             font-family: 'Fira Code', monospace;
@@ -56,7 +55,6 @@
             overflow: hidden;
             display: inline-block;
             width: 13ch;
-            /* Tamanho exato do texto "> CodeShare/_" */
             animation: typing 2s steps(15, end), blink .75s step-end infinite;
         }
 
